@@ -9,7 +9,7 @@ class AppRoutes {
         GetPage(name: "/", page: () => const SplashScreen()),
         GetPage(
           name: "/introduction",
-          page: () => AppIntroductionScreen(),
+          page: () => const AppIntroductionScreen(),
         ),
         GetPage(
             name: "/home",

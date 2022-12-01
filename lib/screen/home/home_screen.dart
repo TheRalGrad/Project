@@ -15,17 +15,20 @@ class HomeScreen extends StatelessWidget {
     QuestionPaperController _questionPaperController = Get.find();
     return Scaffold(
         body: Obx(() => ListView.separated(
+            shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return ClipRRect(
                   child: SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: FadeInImage(
-                        image: NetworkImage(
-                            _questionPaperController.allPaperImages[index]),
-                        placeholder:
-                            AssetImage("assets/images/app_splash_logo.png"),
-                      )));
+                height: 200,
+                width: 200,
+                child: FadeInImage(
+                  image: NetworkImage(
+                      _questionPaperController.allPaperImages[index]),
+                  placeholder: AssetImage(
+                      "assets/images/app_splash_logo.png"), //show progress while loading image
+                  //show no image available image on error loading
+                ),
+              ));
             },
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 20);
