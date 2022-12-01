@@ -1,5 +1,4 @@
 import 'package:project/screen/introduction/introduction.dart';
-import 'package:project/screen/introduction/introduction.dart';
 import 'package:project/screen/splash/splash_screen.dart';
 import 'package:get/get.dart';
 

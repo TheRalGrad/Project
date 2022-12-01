@@ -19,12 +19,20 @@ class AppIntroductionScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.star, size: 65, color: Colors.amber),
-                  SizedBox(height: 40),
-                  const Text('This is a Project II app. I try to get good app'),
-                  SizedBox(
-                    height: 40,
+                  const Icon(
+                    Icons.star,
+                    size: 65,
                   ),
+                  const SizedBox(height: 40),
+                  const Text(
+                    'This is a Project II app. I try to get good app',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: onSurfaceTextColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 40),
                   AppCircleButton(
                       onTap: () => null,
                       child: const Icon(Icons.arrow_forward, size: 35))

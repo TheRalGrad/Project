@@ -3,6 +3,8 @@ import 'package:project/configs/themes/app_light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:project/configs/themes/ui_parameters.dart';
 
+const Color onSurfaceTextColor = Colors.white;
+
 const mainGradientLight = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
