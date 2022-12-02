@@ -4,7 +4,7 @@ import 'package:project/models/question_paper_model.dart';
 import 'package:project/services/firebase_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class QuestionPaperController extends GetxController {
+class QuizPaperController extends GetxController {
   final allPaperImages = <String>[].obs;
   final allPapers = <QuestionPaperModel>[].obs;
 

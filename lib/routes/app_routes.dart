@@ -15,7 +15,7 @@ class AppRoutes {
             name: "/home",
             page: () => const HomeScreen(),
             binding: BindingsBuilder(() {
-              Get.put(QuestionPaperController());
+              Get.put(QuizPaperController());
             })),
       ];
 }
