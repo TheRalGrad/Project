@@ -7,25 +7,28 @@ import 'package:project/screen/home/question_card.dart';
 import 'package:project/services/firebase_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:project/widgets/content_area.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    QuestionPaperController _questionPaperController = Get.find();
+    QuestionPaperController quizPprController = Get.find();
     return Scaffold(
-        body: Obx(() => ListView.separated(
-              padding: UIParameters.mobileScreenPadding,
-              itemCount: _questionPaperController.allPapers.length,
-              itemBuilder: (BuildContext context, int index) {
-                return QuestionCard(
-                  model: _questionPaperController.allPapers[index],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(height: 20);
-              },
-            )));
+        body: ContentArea(
+      child: Obx(() => ListView.separated(
+            padding: UIParameters.mobileScreenPadding,
+            itemCount: quizPprController.allPapers.length,
+            itemBuilder: (BuildContext context, int index) {
+              return QuestionCard(
+                model: quizPprController.allPapers[index],
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(height: 20);
+            },
+          )),
+    ));
   }
 }
