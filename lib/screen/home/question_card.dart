@@ -16,13 +16,16 @@ class QuestionCard extends GetView<QuizPaperController> {
   @override
   Widget build(BuildContext context) {
     const double _padding = 10.0;
-    return Container(
+    return Ink(
       decoration: BoxDecoration(
           borderRadius: UIParameters.cardBorderRadius,
           color: Theme.of(context).cardColor),
       child: InkWell(
         onTap: () {
-          controller.navigateToQuestions(paper: model);
+          controller.navigateToQuestions(
+            paper: model,
+            tryAgain: false,
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(_padding),
