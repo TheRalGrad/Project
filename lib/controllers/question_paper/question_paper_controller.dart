@@ -1,6 +1,7 @@
 import 'package:project/controllers/auth_controller.dart';
 import 'package:project/models/question_paper_model.dart';
 import 'package:get/get.dart';
+import 'package:project/screen/question/questions_screen.dart';
 import 'package:project/services/firebase_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project/firebase_ref/references.dart';
@@ -45,8 +46,7 @@ class QuizPaperController extends GetxController {
         Get.back();
         //Get.offNamed()
       } else {
-        print("logged in");
-        //Get.toNamed();
+        Get.toNamed(QuestionsScreen.routeName, arguments: paper);
       }
     } else {
       print('The title is ${paper.title}');
