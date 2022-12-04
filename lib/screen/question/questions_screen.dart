@@ -39,12 +39,16 @@ class QuestionsScreen extends GetView<QuestionsController> {
                                     .currentQuestion.value!.answers[index];
 
                                 return AnswerCard(
-                                    answer:
-                                        '${answer.identifier}. ${answer.answer}',
-                                    onTap: () {
-                                      controller
-                                          .selectedAnswer(answer.identifier);
-                                    });
+                                  answer:
+                                      '${answer.identifier}. ${answer.answer}',
+                                  onTap: () {
+                                    controller
+                                        .selectedAnswer(answer.identifier);
+                                  },
+                                  isSelected: answer.identifier ==
+                                      controller.currentQuestion.value!
+                                          .selectedAnswer,
+                                );
                               },
                               separatorBuilder:
                                   (BuildContext context, int index) =>
