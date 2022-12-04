@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:project/controllers/auth_controller.dart';
@@ -37,7 +36,7 @@ class MyZoomDrawerController extends GetxController {
 
   void email() {
     final Uri emailLaunchUri =
-        Uri(scheme: 'mail to', path: 's5935512069@phuket.psu.ac.th');
+        Uri(scheme: 'mailto', path: 's5935512069@phuket.psu.ac.th');
     _launch(emailLaunchUri.toString());
   }
 

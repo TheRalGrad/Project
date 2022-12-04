@@ -7,7 +7,7 @@ import 'package:project/configs/themes/ui_parameters.dart';
 import 'package:project/models/question_paper_model.dart';
 import 'package:project/widgets/app_icon_text.dart';
 import 'package:get/get.dart';
-import 'package:project/controllers/question_paper/question_paper_controller.dart';
+import 'package:project/controllers/question_paper_controller.dart';
 
 class QuestionCard extends GetView<QuizPaperController> {
   final QuestionPaperModel model;

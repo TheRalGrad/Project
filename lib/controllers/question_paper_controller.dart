@@ -34,7 +34,8 @@ class QuizPaperController extends GetxController {
       }
       allPapers.assignAll(paperList);
     } catch (e) {
-      AppLogger.e(e);
+      AppLogger.e(e); //**********
+
     }
   }
 
@@ -49,7 +50,7 @@ class QuizPaperController extends GetxController {
         Get.toNamed(QuestionsScreen.routeName, arguments: paper);
       }
     } else {
-      print('The title is ${paper.title}');
+      //print('The title is ${paper.title}');
       _authController.showLoginAlertDialogue();
     }
   }

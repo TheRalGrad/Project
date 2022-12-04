@@ -12,8 +12,9 @@ import 'package:project/screen/introduction/introduction.dart';
 import 'package:project/screen/splash/splash_screen.dart';
 import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   IntialBindings().dependencies();
   runApp(MyApp());
 }
