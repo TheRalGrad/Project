@@ -20,12 +20,7 @@ class AnswerCard extends StatelessWidget {
       borderRadius: UIParameters.cardBorderRadius,
       onTap: onTap,
       child: Ink(
-        child: Text(
-          answer,
-          style: TextStyle(
-            color: isSelected ? onSurfaceTextColor : null,
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: UIParameters.cardBorderRadius,
             color: isSelected
@@ -34,6 +29,12 @@ class AnswerCard extends StatelessWidget {
             border: Border.all(
               color: isSelected ? answerSelectedColor() : answerBorderColor(),
             )),
+        child: Text(
+          answer,
+          style: TextStyle(
+            color: isSelected ? onSurfaceTextColor : null,
+          ),
+        ),
       ),
     );
   }

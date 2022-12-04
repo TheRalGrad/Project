@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/configs/themes/app_colors.dart';
 import 'package:project/configs/themes/custom_text_styles.dart';
+import 'package:project/configs/themes/ui_parameters.dart';
 import 'package:project/controllers/question_paper/questions_controller.dart';
 import 'package:project/firebase_ref/loading_status.dart';
 import 'package:project/widgets/common/background_decoration.dart';
 import 'package:get/get.dart';
+import 'package:project/widgets/common/main_button.dart';
 import 'package:project/widgets/common/question_place_holder.dart';
 import 'package:project/widgets/content_area.dart';
 import 'package:project/widgets/questions/answer_card.dart';
@@ -26,42 +29,89 @@ class QuestionsScreen extends GetView<QuestionsController> {
                 Expanded(
                     child: ContentArea(
                   child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(top: 25),
                     child: Column(
                       children: [
                         Text(
                           controller.currentQuestion.value!.question,
                           style: questionTS,
                         ),
-                        GetBuilder<QuestionsController>(builder: (context) {
-                          return ListView.separated(
-                              itemBuilder: (BuildContext context, int index) {
-                                final answer = controller
-                                    .currentQuestion.value!.answers[index];
+                        GetBuilder<QuestionsController>(
+                            id: 'answers_list',
+                            builder: (context) {
+                              return ListView.separated(
+                                  shrinkWrap: true,
+                                  padding: const EdgeInsets.only(top: 25),
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final answer = controller
+                                        .currentQuestion.value!.answers[index];
 
-                                return AnswerCard(
-                                  answer:
-                                      '${answer.identifier}. ${answer.answer}',
-                                  onTap: () {
-                                    controller
-                                        .selectedAnswer(answer.identifier);
+                                    return AnswerCard(
+                                      answer:
+                                          '${answer.identifier}. ${answer.answer}',
+                                      onTap: () {
+                                        controller
+                                            .selectedAnswer(answer.identifier);
+                                      },
+                                      isSelected: answer.identifier ==
+                                          controller.currentQuestion.value!
+                                              .selectedAnswer,
+                                    );
                                   },
-                                  isSelected: answer.identifier ==
-                                      controller.currentQuestion.value!
-                                          .selectedAnswer,
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                              itemCount: controller
-                                  .currentQuestion.value!.answers.length);
-                        })
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                  itemCount: controller
+                                      .currentQuestion.value!.answers.length);
+                            }),
                       ],
                     ),
                   ),
-                ))
+                )),
+              ColoredBox(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Padding(
+                  padding: UIParameters.mobileScreenPadding,
+                  child: Row(
+                    children: [
+                      Visibility(
+                        visible: controller.isFirstQuestion,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SizedBox(
+                            width: 55,
+                            height: 55,
+                            child: MainButton(
+                              onTap: () {
+                                controller.prevQuestion();
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Get.isDarkMode
+                                    ? onSurfaceTextColor
+                                    : Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Visibility(
+                            child: MainButton(
+                          onTap: () {
+                            controller.nextQuestion();
+                          },
+                          title: 'Next',
+                        )),
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           )),
     ));
