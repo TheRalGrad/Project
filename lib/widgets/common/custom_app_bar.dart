@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:project/configs/themes/app_icons.dart';
 import 'package:project/configs/themes/custom_text_styles.dart';
+import 'package:project/configs/themes/ui_parameters.dart';
+import 'package:project/widgets/app_circle_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
@@ -19,23 +23,46 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Stack(
-      children: [
-        Positioned.fill(
-          child: titleWidget == null
-              ? Center(
-                  child: Text(
-                    title,
-                    style: appBarTS,
+        child: Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: mobileScreenPadding, vertical: mobileScreenPadding),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: titleWidget == null
+                ? Center(
+                    child: Text(
+                      title,
+                      style: appBarTS,
+                    ),
+                  )
+                : Center(child: titleWidget),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              leading ??
+                  Transform.translate(
+                    offset: const Offset(-14, 0),
+                    child: const BackButton(),
+                  ),
+              if (showActionIcon)
+                Transform.translate(
+                  offset: const Offset(10, 0),
+                  child: AppCircleButton(
+                    onTap: onMenuActionTap ?? null,
+                    child: const Icon(AppIcons.menu),
                   ),
                 )
-              : Center(child: titleWidget),
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     ));
   }
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => throw UnimplementedError();
+  Size get preferredSize => const Size(double.maxFinite, 80);
 }
