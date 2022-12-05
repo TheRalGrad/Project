@@ -5,6 +5,7 @@ import 'package:project/firebase_ref/loading_status.dart';
 import 'package:get/get.dart';
 import 'package:project/firebase_ref/references.dart';
 import 'package:project/models/question_paper_model.dart';
+import 'package:project/screen/question/result_screen.dart';
 
 class QuestionsController extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
@@ -80,6 +81,22 @@ class QuestionsController extends GetxController {
     update(['answers_list']);
   }
 
+  String get completedTest {
+    final answered = allQuestions
+        .where((element) => element.selectedAnswer != null)
+        .toList()
+        .length;
+    return '$answered out of ${allQuestions.length} answered';
+  }
+
+  void jumpToQuestion(int index, {bool isGoBack = true}) {
+    questionIndex.value = index;
+    currentQuestion.value = allQuestions[index];
+    if (isGoBack) {
+      Get.back();
+    }
+  }
+
   void nextQuestion() {
     if (questionIndex.value >= allQuestions.length - 1) return;
     questionIndex.value++;
@@ -95,7 +112,7 @@ class QuestionsController extends GetxController {
   _startTimer(int seconds) {
     const duration = Duration(seconds: 1);
     remainSconds = seconds;
-    Timer.periodic(duration, (Timer timer) {
+    _timer = Timer.periodic(duration, (Timer timer) {
       if (remainSconds == 0) {
         timer.cancel();
       } else {
@@ -107,5 +124,10 @@ class QuestionsController extends GetxController {
         remainSconds--;
       }
     });
+  }
+
+  void complete() {
+    _timer!.cancel();
+    Get.offAndToNamed(ResultScreen.routeName);
   }
 }

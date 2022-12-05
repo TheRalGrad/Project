@@ -5,6 +5,7 @@ import 'package:project/screen/home/home_screen.dart';
 import 'package:project/screen/introduction/introduction.dart';
 import 'package:project/screen/login/login_screen.dart';
 import 'package:project/screen/question/questions_screen.dart';
+import 'package:project/screen/question/result_screen.dart';
 import 'package:project/screen/question/test_overview_screen.dart';
 import 'package:project/screen/splash/splash_screen.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,7 @@ class AppRoutes {
             })),
         GetPage(
             name: TestOverviewScreen.routeName,
-            page: () => const TestOverviewScreen())
+            page: () => const TestOverviewScreen()),
+        GetPage(name: ResultScreen.routeName, page: () => const ResultScreen())
       ];
 }
