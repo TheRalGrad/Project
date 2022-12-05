@@ -4,6 +4,7 @@ import 'package:project/controllers/zoom_drawer_controller.dart';
 import 'package:project/screen/home/home_screen.dart';
 import 'package:project/screen/introduction/introduction.dart';
 import 'package:project/screen/login/login_screen.dart';
+import 'package:project/screen/question/answer_check_screen.dart';
 import 'package:project/screen/question/questions_screen.dart';
 import 'package:project/screen/question/result_screen.dart';
 import 'package:project/screen/question/test_overview_screen.dart';
@@ -34,6 +35,9 @@ class AppRoutes {
         GetPage(
             name: TestOverviewScreen.routeName,
             page: () => const TestOverviewScreen()),
-        GetPage(name: ResultScreen.routeName, page: () => const ResultScreen())
+        GetPage(name: ResultScreen.routeName, page: () => const ResultScreen()),
+        GetPage(
+            name: AnswerCheckScreen.routeName,
+            page: () => const AnswerCheckScreen())
       ];
 }
