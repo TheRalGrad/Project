@@ -12,6 +12,7 @@ import 'package:project/widgets/common/main_button.dart';
 import 'package:project/widgets/common/question_place_holder.dart';
 import 'package:project/widgets/content_area.dart';
 import 'package:project/widgets/questions/answer_card.dart';
+import 'package:project/widgets/questions/countdown_timer.dart';
 
 class QuestionsScreen extends GetView<QuestionsController> {
   const QuestionsScreen({Key? key}) : super(key: key);
@@ -22,7 +23,18 @@ class QuestionsScreen extends GetView<QuestionsController> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(
-          titleWidget: Text("Custom Text"),
+          leading: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: const ShapeDecoration(
+                  shape: StadiumBorder(
+                      side: BorderSide(color: onSurfaceTextColor, width: 2))),
+              child: Obx(() => CountdownTimer(
+                  time: controller.time.value, color: onSurfaceTextColor))),
+          showActionIcon: true,
+          titleWidget: Obx(() => Text(
+                'Q. ${(controller.questionIndex.value + 1).toString().padLeft(2, '0')}',
+                style: appBarTS,
+              )),
         ),
         body: BackgroundDecoration(
           child: Obx(() => Column(

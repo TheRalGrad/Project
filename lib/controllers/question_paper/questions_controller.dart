@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:project/firebase_ref/loading_status.dart';
@@ -14,11 +15,15 @@ class QuestionsController extends GetxController {
   bool get isLastQuestion => questionIndex.value >= allQuestions.length - 1;
 
   Rxn<Questions> currentQuestion = Rxn<Questions>();
+  //Timer
+  Timer? _timer;
+  int remainSconds = 1;
+  final time = '00.00'.obs;
 
   @override
   void onReady() {
     final _questionPaper = Get.arguments as QuestionPaperModel;
-    print(_questionPaper.id);
+    print("...onReady...");
     loadData(_questionPaper);
     super.onReady();
   }
@@ -49,22 +54,24 @@ class QuestionsController extends GetxController {
             .map((answer) => Answers.fromSnapshot(answer))
             .toList();
         _question.answers = answers;
-        if (questionPaper.questions != null &&
-            questionPaper.questions!.isNotEmpty) {
-          allQuestions.assignAll(questionPaper.questions!);
-          currentQuestion.value = questionPaper.questions![0];
-          if (kDebugMode) {
-            print(questionPaper.questions![0].question);
-          }
-          loadingStatus.value = LoadingStatus.completed;
-        } else {
-          loadingStatus.value = LoadingStatus.error;
-        }
       }
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
+    }
+    if (questionPaper.questions != null &&
+        questionPaper.questions!.isNotEmpty) {
+      allQuestions.assignAll(questionPaper.questions!);
+      currentQuestion.value = questionPaper.questions![0];
+      _startTimer(questionPaper.timeSeconds);
+      print("...startTimer...");
+      if (kDebugMode) {
+        print(questionPaper.questions![0].question);
+      }
+      loadingStatus.value = LoadingStatus.completed;
+    } else {
+      loadingStatus.value = LoadingStatus.error;
     }
   }
 
@@ -83,5 +90,22 @@ class QuestionsController extends GetxController {
     if (questionIndex.value <= 0) return;
     questionIndex.value--;
     currentQuestion.value = allQuestions[questionIndex.value];
+  }
+
+  _startTimer(int seconds) {
+    const duration = Duration(seconds: 1);
+    remainSconds = seconds;
+    Timer.periodic(duration, (Timer timer) {
+      if (remainSconds == 0) {
+        timer.cancel();
+      } else {
+        int minutes = remainSconds ~/ 60;
+        int seconds = remainSconds % 60;
+        time.value = minutes.toString().padLeft(2, "0") +
+            ":" +
+            seconds.toString().padLeft(2, "0");
+        remainSconds--;
+      }
+    });
   }
 }
